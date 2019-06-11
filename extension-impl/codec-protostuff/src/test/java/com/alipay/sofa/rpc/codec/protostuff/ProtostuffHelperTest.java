@@ -14,23 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.alipay.sofa.rpc.hystrix;
+package com.alipay.sofa.rpc.codec.protostuff;
 
-import com.alipay.sofa.rpc.test.HelloService;
+import org.junit.Assert;
+import org.junit.Test;
 
-import java.util.concurrent.atomic.AtomicInteger;
+/**
+ * @author leizhiyuan
+ */
+public class ProtostuffHelperTest {
 
-public class InvokeFailedHelloService implements HelloService {
+    private ProtostuffHelper protostuffHelper = new ProtostuffHelper();
 
-    private AtomicInteger executeCount = new AtomicInteger(0);
-
-    @Override
-    public String sayHello(String name, int age) {
-        executeCount.incrementAndGet();
-        throw new RuntimeException("invoke failed");
+    @Test
+    public void getReqClass() {
+        Class req = protostuffHelper.getReqClass(
+            ProtostuffService.class.getCanonicalName(), "echoStr");
+        Assert.assertTrue(req == ExampleObj.class);
     }
 
-    public int getExecuteCount() {
-        return executeCount.get();
+    @Test
+    public void getResClass() {
+        Class res = protostuffHelper.getResClass(
+            ProtostuffService.class.getCanonicalName(), "echoStr");
+        Assert.assertTrue(res == ExampleObj.class);
     }
 }
