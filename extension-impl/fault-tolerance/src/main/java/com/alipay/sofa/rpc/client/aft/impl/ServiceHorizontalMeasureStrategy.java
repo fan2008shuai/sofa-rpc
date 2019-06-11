@@ -68,7 +68,7 @@ public class ServiceHorizontalMeasureStrategy implements MeasureStrategy {
             return measureResult;
         }
 
-        //如果有被新剔除的InvocationStat，则不会存在于该次获取结果中。
+        //如果有被新剔除的InvocationStat，则不会存在于该次获取结果中。(有可能有些InvocationStat连续几个周期都没有请求过)
         List<InvocationStat> invocationStats = getInvocationStatSnapshots(stats);
 
         long timeWindow = FaultToleranceConfigManager.getTimeWindow(appName);
@@ -122,6 +122,7 @@ public class ServiceHorizontalMeasureStrategy implements MeasureStrategy {
         logMeasureResult(measureResult, timeWindow, leastWindowCount, averageExceptionRate,
             leastWindowExceptionRateMultiple);
 
+        //TODO ?? 为什么不再备份完就更新
         InvocationStatFactory.updateInvocationStats(invocationStats);
         return measureResult;
     }

@@ -111,6 +111,7 @@ public abstract class AbstractInvocationStat implements InvocationStat {
         exceptionCount.set(count);
     }
 
+    //TODO ??不应该写在抽象类
     @Override
     public InvocationStat snapshot() {
         ServiceExceptionInvocationStat invocationStat = new ServiceExceptionInvocationStat(dimension);

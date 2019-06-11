@@ -124,6 +124,7 @@ public class InvocationStatFactory {
      */
     public static void updateInvocationStats(List<InvocationStat> snapshots) {
         for (InvocationStat snapshot : snapshots) {
+            //获取原来的InvocationStat
             getInvocationStat(snapshot.getDimension()).update(snapshot);
         }
     }
